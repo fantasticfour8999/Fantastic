@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EcoNari - Empowering Women in Green Economy</title>
+<style>
+  /* Root colors */
+  :root {
+    --main-bg: #1f7a8c; /* greenish blue */
+    --accent-bg: #3aafb9;
+    --highlight: #d4f1f4;
+    --text-color: #f0f6f7;
+    --btn-bg: #62becd;
+    --btn-hover-bg: #89ced7;
+    --section-padding: 60px 20px;
+  }
+
+  /* Reset and base */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--main-bg), var(--accent-bg));
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle at 30% 30%, #2acfcf88, transparent 70%), 
+                radial-gradient(circle at 70% 70%, #88e0e0aa, transparent 70%);
+    animation: floatBackground 30s linear infinite;
+    z-index: -1;
+  }
+
+  @keyframes floatBackground {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(50px, 30px) scale(1.05); }
+    100% { transform: translate(0,0) scale(1); }
+  }
+
+  header {
+    padding: 20px;
+    text-align: center;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+    color: var(--highlight);
+    letter-spacing: 1.2px;
+  }
+
+  nav {
+    margin-top: 5px;
+  }
+
+  nav a {
+    color: var(--highlight);
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  nav a:hover {
+    color: var(--btn-bg);
+  }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  section {
+    padding: var(--section-padding);
+    border-radius: 12px;
+    margin-bottom: 50px;
+    background: rgba(255 255 255 / 0.08);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    backdrop-filter: saturate(180%) blur(12px);
+  }
+
+  section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    border-left: 6px solid var(--btn-bg);
+    padding-left: 12px;
+  }
+
+  section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  /* Card style for lists */
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .card {
+    flex: 1 1 250px;
+    background: var(--highlight);
+    color: #145a61;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 3px 10px #0f4748aa;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px #0f4748cc;
+  }
+
+  .card h3 {
+    margin-bottom: 8px;
+  }
+
+  /* Enrollment form */
+  form {
+    max-width: 500px;
+    margin-top: 10px;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border-radius: 7px;
+    border: none;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #daf3f5;
+    color: #114445;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: 3px solid var(--btn-bg);
+  }
+
+  button.enroll-btn {
+    background-color: var(--btn-bg);
+    color: var(--highlight);
+    font-weight: 700;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+  }
+
+  button.enroll-btn:hover {
+    background-color: var(--btn-hover-bg);
+  }
+
+  /* Smooth scroll anchor targets */
+  section:target {
+    scroll-margin-top: 80px;
+  }
+
+  /* Simple chatbot widget */
+  #chatbot {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--btn-bg);
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--highlight);
+    font-size: 28px;
+    user-select: none;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+  }
+
+  #chatbot:hover {
+    background: var(--btn-hover-bg);
+  }
+
+  /* Chat window */
+  #chat-window {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 320px;
+    max-width: 90vw;
+    height: 420px;
+    background: var(--highlight);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    overflow: hidden;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #114445;
+    z-index: 102;
+  }
+
+  #chat-header {
+    background: var(--btn-bg);
+    color: var(--highlight);
+    padding: 14px 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #chat-close {
+    cursor: pointer;
+    font-size: 22px;
+  }
+
+  #chat-messages {
+    flex: 1;
+    padding: 15px 20px;
+    overflow-y: auto;
+  }
+
+  #chat-input-container {
+    display: flex;
+    padding: 10px 20px;
+    border-top: 1px solid #aacddf;
+  }
+
+  #chat-input {
+    flex: 1;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+
+  #chat-send-btn {
+    background: var(--btn-bg);
+    color: var(--highlight);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 18px;
+    margin-left: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #chat-send-btn:hover {
+    background-color: var(--btn-hover-bg);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    nav a {
+      margin: 0 8px;
+      font-size: 0.9rem;
+    }
+    section {
+      padding: 35px 15px;
+    }
+    .card-list {
+      flex-direction: column;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>EcoNari</h1>
+  <nav>
+    <a href="#internships">Internships</a>
+    <a href="#programs">Programs</a>
+    <a href="#jobs">Job Employment</a>
+    <a href="#enrollment">Enrollment</a>
+  </nav>
+</header>
+
+<main>
+  <section id="internships" aria-label="Internships">
+    <h2>Internships</h2>
+    <p>EcoNari connects women with meaningful internships in renewable energy, sustainable farming, and waste management fields. Gain hands-on experience while building your network.</p>
+    <div class="card-list">
+      <div class="card">
+        <h3>Solar Energy Internship</h3>
+        <p>Work alongside experts to learn solar panel installation and maintenance.</p>
+      </div>
+      <div class="card">
+        <h3>Sustainable Farming Intern</h3>
+        <p>Explore eco-friendly farming techniques adapted to community needs.</p>
+      </div>
+      <div class="card">
+        <h3>Waste Management Trainee</h3>
+        <p>Participate in recycling and waste reduction projects with local teams.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs" aria-label="Programs">
+    <h2>Programs</h2>
+    <p>Tailored educational programs delivered in local languages and adapted for all education levels. Our tech-driven approach ensures no one is left behind.</p>
+    <div class="card-list">
+      <div class="card">
+        <h3>Renewable Energy Basics</h3>
+        <p>Learn fundamentals of solar and wind energy, practical and accessible.</p>
+      </div>
+      <div class="card">
+        <h3>Sustainable Agriculture</h3>
+        <p>Techniques and practices for environmentally conscious farming.</p>
+      </div>
+      <div class="card">
+        <h3>Eco Waste Solutions</h3>
+        <p>Effective waste sorting, composting, and recycling methods.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="jobs" aria-label="Job Employment">
+    <h2>Job Employment</h2>
+    <p>Our platform matches you with relevant green economy job opportunities and connects you with mentors offering guidance and support.</p>
+    <div class="card-list">
+      <div class="card">
+        <h3>Green Project Coordinator</h3>
+        <p>Coordinate community renewable energy initiatives.</p>
+      </div>
+      <div class="card">
+        <h3>Sustainable Farm Assistant</h3>
+        <p>Assist in sustainable farming operations locally or remotely.</p>
+      </div>
+      <div class="card">
+        <h3>Waste Management Analyst</h3>
+        <p>Analyze data and improve waste reduction programs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="enrollment" aria-label="Enrollment">
+    <h2>Enrollment</h2>
+    <p>Join EcoNari today! Fill in your details below to get started on your pathway to a sustainable career.</p>
+    <form id="enrollment-form" aria-label="Enrollment form">
+      <label for="full-name">Full Name</label>
+      <input id="full-name" name="full-name" type="text" required placeholder="Your full name" />
+
+      <label for="email">Email Address</label>
+      <input id="email" name="email" type="email" required placeholder="example@example.com" />
+
+      <label for="language">Preferred Language</label>
+      <select id="language" name="language" required>
+        <option value="" disabled selected>Select language</option>
+        <option value="english">English</option>
+        <option value="swahili">Swahili</option>
+        <option value="hindi">Hindi</option>
+        <option value="spanish">Spanish</option>
+      </select>
+
+      <label for="interest">Area of Interest</label>
+      <select id="interest" name="interest" required>
+        <option value="" disabled selected>Select area</option>
+        <option value="renewable-energy">Renewable Energy</option>
+        <option value="sustainable-farming">Sustainable Farming</option>
+        <option value="waste-management">Waste Management</option>
+      </select>
+
+      <button type="submit" class="enroll-btn">Enroll Now</button>
+    </form>
+  </section>
+</main>
+
+<!-- Chatbot button -->
+<div id="chatbot" role="button" aria-label="Open chat assistant" tabindex="0">&#128172;</div>
+
+<!-- Chatbot window -->
+<div id="chat-window" role="dialog" aria-modal="true" aria-labelledby="chat-header" tabindex="-1">
+  <div id="chat-header">
+    EcoNari Assistant
+    <span id="chat-close" role="button" aria-label="Close chat assistant" tabindex="0">&times;</span>
+  </div>
+  <div id="chat-messages" aria-live="polite" aria-relevant="additions"></div>
+  <div id="chat-input-container">
+    <input id="chat-input" type="text" placeholder="Type a message..." aria-label="Chat input" />
+    <button id="chat-send-btn" aria-label="Send message">Send</button>
+  </div>
+</div>
+
+<script>
+  // Simple chatbot toggle
+  const chatbotBtn = document.getElementById('chatbot');
+  const chatWindow = document.getElementById('chat-window');
+  const chatCloseBtn = document.getElementById('chat-close');
+  const chatMessages = document.getElementById('chat-messages');
+  const chatInput = document.getElementById('chat-input');
+  const chatSendBtn = document.getElementById('chat-send-btn');
+
+  chatbotBtn.addEventListener('click', () => {
+    chatWindow.style.display = 'flex';
+    chatInput.focus();
+  });
+
+  chatCloseBtn.addEventListener('click', () => {
+    chatWindow.style.display = 'none';
+    chatMessages.innerHTML = '';
+    chatInput.value = '';
+  });
+
+  chatbotBtn.addEventListener('keydown', e => {
+    if (e.key === "Enter" || e.key === " ") {
+      chatbotBtn.click();
+      e.preventDefault();
+    }
+  });
+
+  chatCloseBtn.addEventListener('keydown', e => {
+    if (e.key === "Enter" || e.key === " ") {
+      chatCloseBtn.click();
+      e.preventDefault();
+    }
+  });
+
+  function appendMessage(text, sender = 'bot') {
+    const msg = document.createElement('div');
+    msg.textContent = text;
+    msg.style.padding = '8px 12px';
+    msg.style.marginBottom = '8px';
+    msg.style.borderRadius = '12px';
+    msg.style.maxWidth = '80%';
+    msg.style.wordWrap = 'break-word';
+    if(sender === 'user') {
+      msg.style.backgroundColor = '#62becd';
+      msg.style.color = '#fff';
+      msg.style.marginLeft = 'auto';
+    } else {
+      msg.style.backgroundColor = '#d4f1f4';
+      msg.style.color = '#114445';
+      msg.style.marginRight = 'auto';
+    }
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Basic chatbot logic placeholder
+  chatSendBtn.addEventListener('click', sendMessage);
+  chatInput.addEventListener('keypress', e => {
+    if(e.key === 'Enter') sendMessage();
+  });
+
+  function sendMessage() {
+    const input = chatInput.value.trim();
+    if(!input) return;
+
+    appendMessage(input, 'user');
+    chatInput.value = '';
+
+    // Simulate bot response (you can replace with real backend)
+    setTimeout(() => {
+      let response = "Sorry, I'm here to assist you with EcoNari info. Please contact support for detailed help.";
+      if(/hello|hi|hey/i.test(input)) {
+        response = "Hello! How can EcoNari help you today? You can ask about programs, internships, jobs, or enrollment.";
+      } else if (/program/i.test(input)) {
+        response = "We offer tailored programs in Renewable Energy, Sustainable Farming, and Waste Management.";
+      } else if (/internship/i.test(input)) {
+        response = "Internships include Solar Energy, Sustainable Farming, and Waste Management roles.";
+      } else if (/job|employment/i.test(input)) {
+        response = "Job openings are regularly updated. Please check the Job Employment section on our website.";
+      } else if (/enroll|sign up/i.test(input)) {
+        response = "You can enroll by filling the form in the Enrollment section.";
+      }
+      appendMessage(response);
+    }, 900);
+  }
+
+  // Enrollment form submission (basic demo)
+  const enrollmentForm = document.getElementById('enrollment-form');
+  enrollmentForm.addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Thank you for enrolling in EcoNari! We will contact you soon.');
+    enrollmentForm.reset();
+  });
+</script>
+
+</body>
+</html>
